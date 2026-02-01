@@ -34,7 +34,7 @@
 
 | Lock Screen | App List | Settings |
 |:---:|:---:|:---:|
-| <img src="screenshots/lock_screen.png" width="250" /> | <img src="screenshots/app_list.png" width="250" /> | <img src="screenshots/settings.png" width="250" /> |
+| <img src="screenshots/lock_screen.jpg" width="250" /> | <img src="screenshots/app_list.jpg" width="250" /> | <img src="screenshots/settings.jpg" width="250" /> |
 > *Note: Add your screenshots to a `screenshots` folder in the repo to make them visible!*
 
 ## 🚀 Getting Started
