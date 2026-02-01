@@ -1,4 +1,5 @@
-# 🔒 Lockeyy - Modern Android App Locker
+# 🔒 Lockeyy
+> **Secure your apps with zero latency. Built for privacy, designed for speed.**
 
 ![Lockeyy Banner](https://img.shields.io/badge/Lockeyy-App%20Locker-blue?style=for-the-badge&logo=android)
 ![Android](https://img.shields.io/badge/Android-34-green?style=flat&logo=android)
