@@ -36,7 +36,7 @@
 | Lock Screen | App List | Settings |
 |:---:|:---:|:---:|
 | <img src="screenshots/lock_screen.jpg" width="250" /> | <img src="screenshots/app_list.jpg" width="250" /> | <img src="screenshots/settings.jpg" width="250" /> |
-> *Note: Add your screenshots to a `screenshots` folder in the repo to make them visible!*
+
 
 ## 🚀 Getting Started
 
@@ -81,4 +81,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-*Built with ❤️ by [JoyalJose54](https://github.com/JoyalJose54)*
+*Built  by [JoyalJose54](https://github.com/JoyalJose54)*
