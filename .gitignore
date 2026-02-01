@@ -1,0 +1,19 @@
+*.iml
+.gradle
+.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+*.keystore
+!debug.keystore
+
+# Android specific
+**/build/
+app/build/
+.gradle/
