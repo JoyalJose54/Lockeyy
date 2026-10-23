@@ -200,7 +200,7 @@ cd S-Secure
 
 **Joyal Jose J**
 * GitHub: [@JoyalJose54](https://github.com/JoyalJose54)
-* Email: [joyaljoyal9496@gmail.com](mailto:joyaljoyal9496@gmail.com)
+
 
 ---
 
