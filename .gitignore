@@ -1,0 +1,33 @@
+# Built application files
+*.apk
+*.aab
+!s_secure_custom.apk
+
+# Gradle files
+.gradle/
+build/
+app/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Kotlin
+.kotlin/
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# REA / Decompiled artifacts
+decompiled/
+rea_package_summary.json
+constants.json
