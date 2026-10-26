@@ -25,7 +25,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Pin
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -53,19 +52,17 @@ import com.ssecure.applock.receiver.SamsungSystemBridge
 import com.ssecure.applock.service.AppLockForegroundService
 
 @Composable
-fun LockAndMaskSettingsScreen(
+fun LockSettingsScreen(
     prefs: AppLockPreferences,
     onBack: () -> Unit,
     onNavigateToLockType: () -> Unit,
-    onNavigateToLockedApps: () -> Unit,
-    onNavigateToMaskedApps: () -> Unit
+    onNavigateToLockedApps: () -> Unit
 ) {
     val context = LocalContext.current
     var isEnabled by remember { mutableStateOf(prefs.isAppLockEnabled) }
     var isBiometricsEnabled by remember { mutableStateOf(prefs.isBiometricsEnabled) }
 
     val lockedCount = remember(isEnabled) { prefs.getLockedPackages().size }
-    val maskedCount = remember(isEnabled) { prefs.getMaskedPackages().size }
 
     Column(
         modifier = Modifier
@@ -88,7 +85,7 @@ fun LockAndMaskSettingsScreen(
                 )
             }
             Text(
-                text = "Lock and mask apps",
+                text = "Lock apps",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
@@ -267,36 +264,22 @@ fun LockAndMaskSettingsScreen(
                 shape = RoundedCornerShape(22.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFF18181B))
             ) {
-                Column {
-                    OneUiSettingRow(
-                        icon = Icons.Default.Lock,
-                        iconBg = Color(0xFF1E293B),
-                        iconTint = Color(0xFF38BDF8),
-                        title = "Locked apps",
-                        subtitle = "$lockedCount apps",
-                        enabled = isEnabled,
-                        onClick = onNavigateToLockedApps
-                    )
-
-                    OneUiDivider()
-
-                    OneUiSettingRow(
-                        icon = Icons.Default.VisibilityOff,
-                        iconBg = Color(0xFF1E293B),
-                        iconTint = Color(0xFFF59E0B),
-                        title = "Masked apps",
-                        subtitle = "$maskedCount apps",
-                        enabled = isEnabled,
-                        onClick = onNavigateToMaskedApps
-                    )
-                }
+                OneUiSettingRow(
+                    icon = Icons.Default.Lock,
+                    iconBg = Color(0xFF1E293B),
+                    iconTint = Color(0xFF38BDF8),
+                    title = "Locked apps",
+                    subtitle = "$lockedCount apps",
+                    enabled = isEnabled,
+                    onClick = onNavigateToLockedApps
+                )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
             // OneUI Informational Footnote
             Text(
-                text = "Locked apps require verification before opening. Masked apps also hide their notifications and launcher shortcuts to keep your privacy secure.",
+                text = "Locked apps require verification before opening to keep your privacy secure.",
                 fontSize = 13.sp,
                 color = Color(0xFF71717A),
                 lineHeight = 18.sp,

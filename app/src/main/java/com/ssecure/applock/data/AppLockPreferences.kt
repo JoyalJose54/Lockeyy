@@ -41,26 +41,6 @@ class AppLockPreferences(context: Context) {
         return isNowLocked
     }
 
-    fun getMaskedPackages(): Set<String> {
-        return prefs.getStringSet(KEY_MASKED_PACKAGES, emptySet()) ?: emptySet()
-    }
-
-    fun setMaskedPackages(packages: Set<String>) {
-        prefs.edit().putStringSet(KEY_MASKED_PACKAGES, packages).apply()
-    }
-
-    fun toggleAppMasked(packageName: String): Boolean {
-        val current = getMaskedPackages().toMutableSet()
-        val isNowMasked = if (current.contains(packageName)) {
-            current.remove(packageName)
-            false
-        } else {
-            current.add(packageName)
-            true
-        }
-        setMaskedPackages(current)
-        return isNowMasked
-    }
 
     fun setPin(pin: String) {
         prefs.edit().putString(KEY_PIN_HASH, hashString(pin)).apply()
@@ -99,12 +79,11 @@ class AppLockPreferences(context: Context) {
     }
 
     companion object {
-        private const val PREFS_NAME = "s_secure_preferences"
+        private const val PREFS_NAME = "lockeyy_preferences"
         private const val KEY_APP_LOCK_ENABLED = "app_lock_enabled"
         private const val KEY_LOCK_TYPE = "applock_lock_type"
         private const val KEY_BIOMETRICS_ENABLED = "biometrics_enabled"
         private const val KEY_LOCKED_PACKAGES = "locked_packages"
-        private const val KEY_MASKED_PACKAGES = "masked_packages"
         private const val KEY_PIN_HASH = "pin_hash"
         private const val KEY_PATTERN_HASH = "pattern_hash"
         private const val KEY_PASSWORD_HASH = "password_hash"

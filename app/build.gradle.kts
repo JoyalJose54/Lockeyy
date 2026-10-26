@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.ssecure.applock"
+        applicationId = "com.lockeyy.applock"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -21,9 +21,22 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("release.keystore")
+            storePassword = "lockeyyrelease"
+            keyAlias = "lockeyy"
+            keyPassword = "lockeyyrelease"
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

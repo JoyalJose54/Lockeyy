@@ -27,8 +27,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -60,7 +58,6 @@ import kotlinx.coroutines.withContext
 @Composable
 fun AppListScreen(
     prefs: AppLockPreferences,
-    isMaskedMode: Boolean,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -68,7 +65,6 @@ fun AppListScreen(
     var isLoading by remember { mutableStateOf(true) }
     val appsList = remember { mutableStateListOf<AppInfo>() }
     val lockedSet = remember { mutableStateOf(prefs.getLockedPackages()) }
-    val maskedSet = remember { mutableStateOf(prefs.getMaskedPackages()) }
 
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
@@ -83,11 +79,10 @@ fun AppListScreen(
                         packageName = appInfo.packageName,
                         appName = name,
                         isSystemApp = isSystem,
-                        isLocked = lockedSet.value.contains(appInfo.packageName),
-                        isMasked = maskedSet.value.contains(appInfo.packageName)
+                        isLocked = lockedSet.value.contains(appInfo.packageName)
                     )
                 }
-                .sortedWith(compareBy({ !it.isLocked && !it.isMasked }, { it.appName.lowercase() }))
+                .sortedWith(compareBy({ !it.isLocked }, { it.appName.lowercase() }))
 
             withContext(Dispatchers.Main) {
                 appsList.clear()
@@ -123,7 +118,7 @@ fun AppListScreen(
                 )
             }
             Text(
-                text = if (isMaskedMode) "Masked apps" else "Locked apps",
+                text = "Locked apps",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -182,7 +177,7 @@ fun AppListScreen(
             )
 
             Text(
-                text = if (isMaskedMode) "${maskedSet.value.size} masked" else "${lockedSet.value.size} locked",
+                text = "${lockedSet.value.size} locked",
                 fontSize = 12.sp,
                 color = Color(0xFF38BDF8),
                 fontWeight = FontWeight.Medium
@@ -203,25 +198,15 @@ fun AppListScreen(
                     .padding(horizontal = 12.dp)
             ) {
                 items(displayedApps, key = { it.packageName }) { app ->
-                    val isActionActive = if (isMaskedMode) {
-                        maskedSet.value.contains(app.packageName)
-                    } else {
-                        lockedSet.value.contains(app.packageName)
-                    }
+                    val isActionActive = lockedSet.value.contains(app.packageName)
 
                     AppRowItem(
                         app = app,
-                        isMaskedMode = isMaskedMode,
                         isActive = isActionActive,
                         pm = context.packageManager,
                         onToggle = {
-                            if (isMaskedMode) {
-                                val nowMasked = prefs.toggleAppMasked(app.packageName)
-                                maskedSet.value = prefs.getMaskedPackages()
-                            } else {
-                                val nowLocked = prefs.toggleAppLocked(app.packageName)
-                                lockedSet.value = prefs.getLockedPackages()
-                            }
+                            val nowLocked = prefs.toggleAppLocked(app.packageName)
+                            lockedSet.value = prefs.getLockedPackages()
                         }
                     )
                 }
@@ -233,7 +218,6 @@ fun AppListScreen(
 @Composable
 fun AppRowItem(
     app: AppInfo,
-    isMaskedMode: Boolean,
     isActive: Boolean,
     pm: PackageManager,
     onToggle: () -> Unit
@@ -251,40 +235,48 @@ fun AppRowItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = onToggle)
-            .padding(horizontal = 12.dp, vertical = 9.dp),
+            .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // App Icon
         Box(
             modifier = Modifier
                 .size(46.dp)
-                .clip(RoundedCornerShape(14.dp))
-                .background(Color(0xFF18181B)),
+                .clip(RoundedCornerShape(12.dp))
+                .background(Color(0xFF27272A)),
             contentAlignment = Alignment.Center
         ) {
             if (appIcon != null) {
-                val bitmap = remember(appIcon) { appIcon.toBitmap(92, 92) }
                 Image(
-                    bitmap = bitmap.asImageBitmap(),
+                    bitmap = appIcon.toBitmap().asImageBitmap(),
                     contentDescription = app.appName,
-                    modifier = Modifier.size(38.dp)
+                    modifier = Modifier.size(44.dp)
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = null,
+                    tint = Color.Gray,
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
         Spacer(modifier = Modifier.width(14.dp))
 
+        // App Name and Details
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = app.appName,
-                fontSize = 15.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.White
             )
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
-                text = app.packageName,
-                fontSize = 11.sp,
-                color = Color(0xFF71717A),
-                maxLines = 1
+                text = if (app.isSystemApp) "System application" else app.packageName,
+                fontSize = 12.sp,
+                color = Color(0xFF71717A)
             )
         }
 
@@ -295,7 +287,7 @@ fun AppRowItem(
                 .clip(CircleShape)
                 .background(
                     if (isActive) {
-                        if (isMaskedMode) Color(0xFF7C3AED) else Color(0xFF2563EB)
+                        Color(0xFF2563EB)
                     } else {
                         Color(0xFF18181B)
                     }
@@ -303,11 +295,7 @@ fun AppRowItem(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = if (isMaskedMode) {
-                    if (isActive) Icons.Default.VisibilityOff else Icons.Default.Visibility
-                } else {
-                    if (isActive) Icons.Default.Lock else Icons.Default.LockOpen
-                },
+                imageVector = if (isActive) Icons.Default.Lock else Icons.Default.LockOpen,
                 contentDescription = "Toggle",
                 tint = if (isActive) Color.White else Color(0xFF52525B),
                 modifier = Modifier.size(18.dp)

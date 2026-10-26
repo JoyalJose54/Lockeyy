@@ -42,7 +42,7 @@ class AppLockAccessibilityService : AccessibilityService() {
         prefs = AppLockPreferences.getInstance(this)
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         instance = this
-        Log.d(tag, "S Secure Accessibility Service Connected")
+        Log.d(tag, "Lockeyy Accessibility Service Connected")
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -98,7 +98,7 @@ class AppLockAccessibilityService : AccessibilityService() {
                 }
             }
 
-            // Central S Secure Branding
+            // Central Lockeyy Branding
             val centerCol = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL
                 gravity = Gravity.CENTER
@@ -110,7 +110,7 @@ class AppLockAccessibilityService : AccessibilityService() {
             centerCol.addView(icon, LinearLayout.LayoutParams(110, 110))
 
             val label = TextView(this).apply {
-                text = "S Secure"
+                text = "Lockeyy"
                 setTextColor(0xFFFFFFFF.toInt())
                 textSize = 18f
                 setPadding(0, 24, 0, 0)
@@ -225,7 +225,7 @@ class AppLockAccessibilityService : AccessibilityService() {
     override fun onInterrupt() {
         mainHandler.removeCallbacks(watchdogRunnable)
         dismissInstantShield()
-        Log.d(tag, "S Secure Accessibility Service Interrupted")
+        Log.d(tag, "Lockeyy Accessibility Service Interrupted")
     }
 
     companion object {

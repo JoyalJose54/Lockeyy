@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🛡️ S Secure
+# 🛡️ Lockeyy
 
-### *Samsung S Secure — Reverse-Engineered & Reimagined for Modern Android*
+### *Lockeyy — Fast, Beautiful & Secure App Locker for Modern Android*
 
 [![Android Platform](https://img.shields.io/badge/Platform-Android%208.0%2B%20(API%2026%E2%80%9335)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
 [![Kotlin](https://img.shields.io/badge/Language-Kotlin%202.0-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
@@ -12,7 +12,7 @@
 
 <br/>
 
-**S Secure** is an authentic, production-grade reconstruction of Samsung's proprietary **S Secure (`com.samsung.android.app.sprotect`)** application. Re-engineered using the **[REA reverse engineering framework](https://github.com/morluto/rea)** and modern Android architecture, it brings Samsung's flagship Knox-inspired app locking, masking, and biometric security to **any Android smartphone running Android 8.0 through Android 15**.
+**Lockeyy** is an authentic, production-grade reconstruction of modern app locking security. Built using modern Android architecture, Jetpack Compose, and zero-latency hardware overlays, it brings seamless app locking and biometric security to **any Android smartphone running Android 8.0 through Android 15**.
 
 [Download Pre-Built APK](#-quick-download) • [Key Features](#-features) • [Reverse Engineering Insights](#-reverse-engineering-insights) • [Zero Sneak-Peek Architecture](#-zero-sneak-peek-architecture) • [Battery & Efficiency](#-battery-efficiency)
 
@@ -24,10 +24,9 @@
 
 | Feature | Description |
 | :--- | :--- |
-| 🎨 **Authentic OneUI Design** | Curated AMOLED black (`#000000`) theme, original Samsung S Secure hero illustrations, native SwitchBars, and grouped preference sections. |
+| 🎨 **Authentic OneUI Design** | Curated AMOLED black (`#000000`) theme, sleek Lockeyy branding, native SwitchBars, and grouped preference sections. |
 | ⚡ **Zero-Latency Shield** | Real-time `TYPE_ACCESSIBILITY_OVERLAY` and `FLAG_ACTIVITY_NO_ANIMATION` pipeline that eliminates the 300–500ms "sneak-peek" frame leak present in other third-party app lockers. |
 | 👆 **Multi-Factor Unlock** | Native **Fingerprint/Face BiometricPrompt**, authentic OneUI Alphanumeric **PIN Dialer** (with dialer subtexts), and a sleek 3x3 **Pattern Grid** with tactile haptic feedback. |
-| 🪟 **Knox-Style App Masking** | Dedicated app masking registry that allows privacy-conscious users to hide apps from launcher lists or mark them for vaulted privacy. |
 | 🔋 **< 0.5% Battery Usage** | 100% **event-driven** architecture. No background polling loops, no CPU wake-locks, and full compatibility with Android Doze deep sleep. |
 | 🌉 **Samsung System Bridge** | On Samsung Galaxy devices, automatically synchronizes with `Settings.Secure` system keys and broadcasts OEM status intents to the OneUI Launcher. |
 
@@ -118,7 +117,7 @@ Unlike generic app lockers with artificial card shadows and loud gradients, S Se
 ## 📂 Project Structure
 
 ```
-S-Secure/
+Lockeyy/
  ├── app/
  │    └── src/main/
  │         ├── java/com/ssecure/applock/
@@ -135,21 +134,23 @@ S-Secure/
  │         │    │    └── SamsungSystemBridge.kt      # Samsung OEM broadcast dispatcher
  │         │    ├── service/
  │         │    │    ├── AppLockAccessibilityService.kt # Real-time window state interceptor
- │         │    │    └── AppLockForegroundService.kt    # Low-memory-killer priority service
+ │         │    │    └── AppLockForegroundService.kt    # Foreground priority protection service
  │         │    └── ui/
- │         │         ├── apps/AppListScreen.kt       # App selector with pill search
+ │         │         ├── apps/AppListScreen.kt       # App selector with search
  │         │         ├── dashboard/DashboardScreen.kt# OneUI hero card & permission status
  │         │         ├── lock/
  │         │         │    ├── LockScreenActivity.kt  # Fullscreen biometric/auth activity
  │         │         │    ├── PatternLockView.kt     # 3x3 Canvas pattern unlocker
  │         │         │    └── PinLockView.kt         # OneUI numeric phone keypad
  │         │         └── settings/
- │         │              ├── LockAndMaskSettingsScreen.kt # Master SwitchBar settings
- │         │              └── LockTypeSetupScreen.kt       # Credential configuration wizard
+ │         │              ├── LockSettingsScreen.kt  # Master SwitchBar settings
+ │         │              └── LockTypeSetupScreen.kt # Credential configuration wizard
  │         └── res/
- │              ├── drawable/                        # Authentic Samsung hero assets & icons
- │              └── values/themes.xml                # Zero-animation window styles
- ├── s_secure_custom.apk                             # Pre-compiled ready-to-test APK
+ │              ├── drawable/                        # Lockeyy branding assets & icons
+ │              └── values/themes.xml                # Theme.Lockeyy zero-animation styles
+ ├── lockeyy-release.apk                             # Signed production-ready release APK (v1.0.0)
+ ├── PRIVACY_POLICY.md                               # App store compliant privacy policy
+ ├── STORE_SUBMISSION_GUIDE.md                       # Indus Appstore, APKPure & Uptodown guide
  └── build.gradle.kts                                # Modern Android Gradle configuration
 ```
 
@@ -157,41 +158,42 @@ S-Secure/
 
 ## 🚀 Quick Download & Installation
 
-### Option 1: Direct APK Install
-Download the compiled, signed debug APK directly from this repository:
-👉 **[`s_secure_custom.apk`](s_secure_custom.apk)**
+### Option 1: Direct Release APK Install
+Download the compiled, production-signed release APK directly:
+👉 **[`lockeyy-release.apk`](lockeyy-release.apk)**
 
 ### Option 2: Install via ADB
 ```bash
 git clone https://github.com/JoyalJose54/S-Secure.git
 cd S-Secure
-adb install -r s_secure_custom.apk
+adb install -r lockeyy-release.apk
 ```
 
 ### Option 3: Build from Source
 ```bash
 git clone https://github.com/JoyalJose54/S-Secure.git
 cd S-Secure
-./gradlew assembleDebug
+./gradlew assembleRelease
 ```
 
 ---
 
 ## ⚙️ Initial Setup Guide
 
-1. Open **S Secure** after installation.
-2. Toggle on the master switch: **"Lock and mask apps"**.
-3. Tap **"Grant Appear On Top"** (`SYSTEM_ALERT_WINDOW`) to allow instant lock overlays.
-4. Tap **"Open Accessibility Settings"** and enable **S Secure** under Downloaded Apps.
-5. Tap **Locked apps** to select your privacy-sensitive applications.
-6. *(Default PIN is `1234` — you can change it to Pattern or Biometrics under **App lock type**).*
+1. Open **Lockeyy** after installation.
+2. Toggle on the master switch: **"Lock apps"**.
+3. Set your preferred security credentials (**PIN** or **Pattern**).
+4. Tap **"Grant Appear On Top"** (`SYSTEM_ALERT_WINDOW`) to allow instant lock overlays.
+5. Tap **"Open Accessibility Settings"** and enable **Lockeyy** under Downloaded Apps.
+6. Tap **Locked apps** to select your privacy-sensitive applications.
 
 ---
 
 ## 🔒 Security & Privacy Notice
 
-* **Zero Cloud Dependence**: S Secure runs 100% offline. No internet permissions are used for analytics, tracking, or network communication.
-* **Cryptographic Hashing**: All PINs, passwords, and pattern gestures are salted and hashed using **SHA-256** before being written to private app storage.
+* **Zero Cloud Dependence**: Lockeyy runs 100% offline. No internet permissions are used for analytics, tracking, or network communication.
+* **Cryptographic Hashing**: All PINs, passwords, and pattern gestures are hashed using **SHA-256** before being written to private app storage.
+* **Backup Protected**: `android:allowBackup="false"` is enforced to prevent unauthorized extraction of stored credentials via ADB.
 * **Screen Privacy**: `LockScreenActivity` enforces `WindowManager.LayoutParams.FLAG_SECURE`, preventing screenshots, screen recordings, and task switcher preview snooping.
 
 ---

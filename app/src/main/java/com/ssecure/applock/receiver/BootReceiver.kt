@@ -12,7 +12,7 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED || intent.action == Intent.ACTION_MY_PACKAGE_REPLACED) {
             val prefs = AppLockPreferences.getInstance(context)
             if (prefs.isAppLockEnabled) {
-                Log.d("BootReceiver", "Boot completed: S Secure is enabled, starting service.")
+                Log.d("BootReceiver", "Boot completed: Lockeyy is enabled, starting service.")
                 AppLockForegroundService.startService(context)
             }
         }

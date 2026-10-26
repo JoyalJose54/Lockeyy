@@ -109,7 +109,7 @@ fun DashboardScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "S Secure",
+                text = "Lockeyy",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -130,7 +130,7 @@ fun DashboardScreen(
                     modifier = Modifier.background(Color(0xFF1E293B))
                 ) {
                     DropdownMenuItem(
-                        text = { Text("About S Secure", color = Color.White) },
+                        text = { Text("About Lockeyy", color = Color.White) },
                         onClick = {
                             showMenu = false
                             showAboutDialog = true
@@ -146,7 +146,7 @@ fun DashboardScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            // Authentic Samsung S Secure Hero Illustration
+            // Lockeyy Hero Illustration
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -157,8 +157,8 @@ fun DashboardScreen(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ss_main_img),
-                    contentDescription = "S Secure Banner",
-                    modifier = Modifier.fillMaxSize(),
+                    contentDescription = "Lockeyy Banner",
+                    modifier = Modifier.size(130.dp),
                     contentScale = ContentScale.Fit
                 )
             }
@@ -167,7 +167,7 @@ fun DashboardScreen(
 
             // Subtitle
             Text(
-                text = "Keep selected apps private by locking or masking them.",
+                text = "Keep selected apps private by locking them.",
                 fontSize = 14.sp,
                 color = Color(0xFFA1A1AA),
                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp)
@@ -175,12 +175,17 @@ fun DashboardScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Samsung Feature Card (Lock and mask apps)
+            // App Lock Feature Card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
                         if (!isEnabled) {
+                            if (!prefs.hasSetPin() && !prefs.hasSetPattern()) {
+                                onNavigateToSettings()
+                                android.widget.Toast.makeText(context, "Please set a PIN or Pattern first", android.widget.Toast.LENGTH_SHORT).show()
+                                return@clickable
+                            }
                             isEnabled = true
                             prefs.isAppLockEnabled = true
                             AppLockForegroundService.startService(context)
@@ -217,7 +222,7 @@ fun DashboardScreen(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Lock and mask apps",
+                            text = "Lock apps",
                             fontSize = 17.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White
@@ -244,6 +249,11 @@ fun DashboardScreen(
                     Switch(
                         checked = isEnabled,
                         onCheckedChange = { checked ->
+                            if (checked && !prefs.hasSetPin() && !prefs.hasSetPattern()) {
+                                onNavigateToSettings()
+                                android.widget.Toast.makeText(context, "Please set a PIN or Pattern first", android.widget.Toast.LENGTH_SHORT).show()
+                                return@Switch
+                            }
                             isEnabled = checked
                             prefs.isAppLockEnabled = checked
                             if (checked) {
@@ -291,7 +301,7 @@ fun DashboardScreen(
                         }
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = "To allow S Secure to immediately display the lock screen over protected apps, grant Appear on top permission.",
+                            text = "To allow Lockeyy to immediately display the lock screen over protected apps, grant Appear on top permission.",
                             fontSize = 13.sp,
                             color = Color(0xFF94A3B8)
                         )
@@ -340,7 +350,7 @@ fun DashboardScreen(
                         }
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
-                            text = "To detect when locked apps are opened in real-time, enable S Secure under Accessibility.",
+                            text = "To detect when locked apps are opened in real-time, enable Lockeyy under Accessibility.",
                             fontSize = 13.sp,
                             color = Color(0xFFFEF3C7)
                         )
@@ -363,13 +373,13 @@ fun DashboardScreen(
     if (showAboutDialog) {
         AlertDialog(
             onDismissRequest = { showAboutDialog = false },
-            title = { Text("About S Secure", color = Color.White, fontWeight = FontWeight.Bold) },
+            title = { Text("About Lockeyy", color = Color.White, fontWeight = FontWeight.Bold) },
             text = {
                 Column {
                     Text("Version 1.0.0", color = Color(0xFF94A3B8), fontSize = 14.sp)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        "S Secure keeps your personal applications, sensitive messages, and media secure with biometrics, PIN, and pattern protection.",
+                        "Lockeyy keeps your personal applications, sensitive messages, and media secure with biometrics, PIN, and pattern protection.",
                         color = Color(0xFFE2E8F0),
                         fontSize = 13.sp
                     )

@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">S Secure</string>
+    <string name="app_name">Lockeyy</string>
     <string name="accessibility_service_description">Monitors foreground applications to instantly lock and protect your selected apps.</string>
-    <string name="lock_and_mask_apps">Lock and mask apps</string>
+    <string name="lock_apps">Lock apps</string>
     <string name="locked_apps">Locked apps</string>
-    <string name="masked_apps">Masked apps</string>
     <string name="app_lock_type">App lock type</string>
     <string name="biometrics">Biometrics</string>
     <string name="notification_channel_name">App Lock Protection</string>

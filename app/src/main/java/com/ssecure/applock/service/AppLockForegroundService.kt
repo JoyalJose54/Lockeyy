@@ -108,7 +108,7 @@ class AppLockForegroundService : Service() {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("S Secure Protection Active")
+            .setContentTitle("Lockeyy Protection Active")
             .setContentText("Monitoring and protecting your selected apps")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
@@ -121,10 +121,10 @@ class AppLockForegroundService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "S Secure Protection Service",
+                "Lockeyy Protection Service",
                 NotificationManager.IMPORTANCE_MIN
             ).apply {
-                description = "Keeps S Secure AppLock service active in the background"
+                description = "Keeps Lockeyy AppLock service active in the background"
             }
             val manager = getSystemService(NotificationManager::class.java)
             manager?.createNotificationChannel(channel)
@@ -139,20 +139,28 @@ class AppLockForegroundService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     companion object {
-        private const val CHANNEL_ID = "ssecure_protection_channel"
+        private const val CHANNEL_ID = "lockeyy_protection_channel"
         private const val NOTIFICATION_ID = 1001
 
         fun startService(context: Context) {
-            val intent = Intent(context, AppLockForegroundService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
+            try {
+                val intent = Intent(context, AppLockForegroundService::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(intent)
+                } else {
+                    context.startService(intent)
+                }
+            } catch (e: Exception) {
+                android.util.Log.w("AppLockForeground", "startService deferred or not permitted: ${e.message}")
             }
         }
 
         fun stopService(context: Context) {
-            context.stopService(Intent(context, AppLockForegroundService::class.java))
+            try {
+                context.stopService(Intent(context, AppLockForegroundService::class.java))
+            } catch (e: Exception) {
+                android.util.Log.w("AppLockForeground", "stopService failed: ${e.message}")
+            }
         }
     }
 }

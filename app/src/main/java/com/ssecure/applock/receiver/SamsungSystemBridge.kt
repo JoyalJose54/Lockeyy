@@ -14,6 +14,11 @@ object SamsungSystemBridge {
     const val APP_LOCK_LOCK_TYPE_KEY = "applock_lock_type"
 
     fun syncWithSamsungSystem(context: Context, isEnabled: Boolean, lockTypeId: Int) {
+        // Only run OEM integration if device is actually Samsung
+        if (!android.os.Build.MANUFACTURER.equals("samsung", ignoreCase = true)) {
+            return
+        }
+
         try {
             // Attempt writing to Settings.Secure (successful if granted WRITE_SECURE_SETTINGS via ADB/system)
             Settings.Secure.putInt(context.contentResolver, APP_LOCK_ENABLED_KEY, if (isEnabled) 1 else 0)

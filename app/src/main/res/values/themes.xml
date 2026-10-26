@@ -1,11 +1,11 @@
 <resources>
-    <style name="Theme.SSecure" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Lockeyy" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="Theme.SSecure.LockScreen" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Lockeyy.LockScreen" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowAnimationStyle">@null</item>
@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
     </style>
+
+    <!-- Legacy compatibility aliases -->
+    <style name="Theme.SSecure" parent="Theme.Lockeyy" />
+    <style name="Theme.SSecure.LockScreen" parent="Theme.Lockeyy.LockScreen" />
 </resources>

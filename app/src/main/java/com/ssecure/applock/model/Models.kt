@@ -14,6 +14,5 @@ data class AppInfo(
     val packageName: String,
     val appName: String,
     val isSystemApp: Boolean = false,
-    val isLocked: Boolean = false,
-    val isMasked: Boolean = false
+    val isLocked: Boolean = false
 )

@@ -2,6 +2,7 @@
 *.apk
 *.aab
 !s_secure_custom.apk
+!lockeyy-release.apk
 
 # Gradle files
 .gradle/
