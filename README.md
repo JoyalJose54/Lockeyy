@@ -57,7 +57,7 @@ s_secure-v5.0.10.apk
 
 Traditional third-party app lockers on Google Play suffer from a notorious flaw: **the target app interface flashes for 300–600ms before the lock screen appears**.
 
-S Secure solves this through a multi-stage hardware overlay pipeline:
+Lockeyy solves this through a multi-stage hardware overlay pipeline:
 
 ```mermaid
 sequenceDiagram
@@ -92,7 +92,7 @@ sequenceDiagram
 
 ## 🎨 Human-Crafted OneUI Design System
 
-Unlike generic app lockers with artificial card shadows and loud gradients, S Secure strictly follows **Samsung's OneUI Design Guidelines**:
+Unlike generic app lockers with artificial card shadows and loud gradients, Lockeyy strictly follows **Samsung's OneUI Design Guidelines**:
 
 * **AMOLED True Black**: Base palette set to pure `#000000` with `#18181B` grouped surface containers.
 * **Ergonomic Thumb Placement**: All interaction elements (PIN keypad, 3x3 pattern dots) are anchored in the **bottom 45%** of the screen for natural one-handed thumb reach.
@@ -104,7 +104,7 @@ Unlike generic app lockers with artificial card shadows and loud gradients, S Se
 
 ## 🔋 Battery & Efficiency Benchmark
 
-| Metric | S Secure | Standard App Lockers |
+| Metric | Lockeyy | Standard App Lockers |
 | :--- | :--- | :--- |
 | **Daily Battery Drain** | **< 0.5%** | 5.0% – 15.0% |
 | **Detection Method** | **Event-Driven Push** (`AccessibilityService`) | Polling Loop (`while(true) Thread.sleep(100)`) |
@@ -164,15 +164,15 @@ Download the compiled, production-signed release APK directly:
 
 ### Option 2: Install via ADB
 ```bash
-git clone https://github.com/JoyalJose54/S-Secure.git
-cd S-Secure
+git clone https://github.com/JoyalJose54/Lockeyy.git
+cd Lockeyy
 adb install -r lockeyy-release.apk
 ```
 
 ### Option 3: Build from Source
 ```bash
-git clone https://github.com/JoyalJose54/S-Secure.git
-cd S-Secure
+git clone https://github.com/JoyalJose54/Lockeyy.git
+cd Lockeyy
 ./gradlew assembleRelease
 ```
 
